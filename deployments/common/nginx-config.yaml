@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: IngressClass
+metadata:
+  name: nginx
+spec:
+  controller: nginx.org/ingress-controller   
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-config
+  namespace: nginx-ingress
+data:
+  proxy-protocol: "True"
+  real-ip-header: "proxy_protocol"
+  set-real-ip-from: "0.0.0.0/0"
