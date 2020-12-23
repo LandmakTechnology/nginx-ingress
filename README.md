@@ -21,7 +21,7 @@ In the case of NGINX, the Ingress controller is deployed in a pod along with the
 ## 1. Clone Kubernetes Nginx Ingress Manifests into server where you have kubectl
 
 ```
-$ git clone https://github.com/LandmakTechnology/nginx-ingress
+$ git clone https://github.com/MithunTechnologiesDevOps/kubernetes-ingress.git
 
 $ cd kubernetes-ingress/deployments
 ```
@@ -179,9 +179,13 @@ spec:
 ```
 $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out mithun-ingress-tls.crt -keyout mithun-ingress-tls.key -subj "/CN=javawebapp.mithuntechdevops.co.in/O=mithun-ingress-tls"
 
+$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out landmark-ingress-tls.crt -keyout landmark-ingress-tls.key -subj "/CN=javawebapp.landmarkteck.net/O=landmark-ingress-tls"
+
+http://apps.landmarkteck.net/
+
 # Create secret for with your certificate .key & .crt file
 
-$ kubectl create secret tls mithun-ingress-tls --namespace default --key mithun-ingress-tls.key --cert mithun-ingress-tls.crt
+$ kubectl create secret tls landmark-ingress-tls --namespace default --key landmark-ingress-tls.key --cert landmark-ingress-tls.crt
 ```
 ### Mention tls/ssl(certificate) details in ingress
 ```
@@ -191,15 +195,34 @@ metadata:
   name: ingress-resource-1
 spec:
   tls:
-  - hosts:
-     - javawebapp.mithuntechdevops.co.in
-     secretName: mithun-ingress-tls
+    - hosts:
+      - javawebapp.landmarkteck.net
+       secretName: landmark-ingress-tls
   ingressClassName: nginx
   rules:
-  - host: javawebapp.mithuntechdevops.co.in
+  - host: javawebapp.landmarkteck.net
     http:
       paths:
       - backend:
           serviceName: javawebappservice
           servicePort: 80
 ```
+### Mention tls/ssl(certificate) details in ingress
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource-1
+spec:
+  tls:
+    - hosts:
+      - javawebapp.landmarkteck.net
+      secretName: landmark-ingress-tls
+  ingressClassName: nginx
+  rules:
+  - host: javawebapp.landmarkteck.net
+    http:
+      paths:
+      - backend:
+          serviceName: javawebappservice
+          servicePort: 443
