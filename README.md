@@ -23,7 +23,7 @@ In the case of NGINX, the Ingress controller is deployed in a pod along with the
 ```
 $ git clone https://github.com/LandmakTechnology/nginx-ingress
 
-$ cd kubernetes-ingress/deployments
+$ cd nginx-ingress/deployments
 ```
 ## 2. Create a Namespace And SA
 
